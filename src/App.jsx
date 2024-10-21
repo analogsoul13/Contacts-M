@@ -5,6 +5,9 @@ import Home from './pages/Home'
 import { Routes,Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import AddContact from './components/AddContact'
+import EditContact from './components/EditContact'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -14,8 +17,10 @@ function App() {
       <Routes >
         <Route path={'/'} element={<Home />} />
         <Route path={'/landing'} element={<Landing />} />
-        <Route path={'/addcontact'} element={<AddContact />} />
+        <Route path={'/contacts'} element={<AddContact />} />
+        <Route path={'/editcontact'} element={<EditContact/>} />
       </Routes>
+      <ToastContainer/>
     </>
   )
 }
