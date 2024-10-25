@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const base_url="http://localhost:3000"
+const base_url="https://contact-server-mdil.onrender.com"
 
 export const getContactsApi=async()=>{
     return await axios.get(`${base_url}/contacts`)

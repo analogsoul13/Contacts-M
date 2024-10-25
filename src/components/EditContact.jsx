@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { updateContactApi } from '../services/allApi';
 
-function EditContact() {
+function EditContact({contact,onToggle}) {
 
     const [updateContact, setUpdateContact] = useState({
         name: "", email: "", phone: "", contactImage: ""
@@ -14,7 +14,7 @@ function EditContact() {
     const handleUpdate = async () => {
         const { name, email, phone, contactImage } = updateContact
 
-        const result = await updateContactApi(updateContact);
+        const result = await updateContactApi(contact.id);
         if (result.status == 201) {
             toast.success("Contact Updated Succesfully")
             setUpdateContact({ name: "", email: "", phone: "", contactImage: "" });
@@ -30,10 +30,10 @@ function EditContact() {
 
     return (
         <>
-            <div className='flex flex-col items-center justify-center p-4'>
+            <div className='flex flex-col modal items-center justify-center p-4'>
                 <h1 className='text-3xl mt-10'>Edit Contact</h1>
 
-                <div className="mx-auto max-w-sm bg-gray-600 mt-10 rounded-lg p-6 shadow-4 dark:bg-surface-dark">
+                <div className="mx-auto modal-box max-w-sm bg-gray-600 mt-10 rounded-lg p-6 shadow-4 dark:bg-surface-dark">
 
                     <label className="input input-bordered mb-3 flex items-center gap-2">
                         <input type="text" className="grow" placeholder="Names" />
@@ -77,9 +77,9 @@ function EditContact() {
                         <input type="text" className="grow" placeholder="Image Url" required />
                     </label>
 
-                    <div className='flex justify-between'>
+                    <div className='flex justify- modal-bottom'>
                         <button onClick={handleUpdate} className="btn btn-neutral">Update</button>
-                        <button className="btn btn-error">Close</button>
+                        <button onClick={onToggle} className="btn btn-error">Close</button>
                     </div>
 
                 </div>
