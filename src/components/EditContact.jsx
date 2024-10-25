@@ -1,76 +1,89 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { updateContactApi } from '../services/allApi';
 
 function EditContact() {
+
+    const [updateContact, setUpdateContact] = useState({
+        name: "", email: "", phone: "", contactImage: ""
+    });
+
+    const nav = useNavigate()
+
+
+    const handleUpdate = async () => {
+        const { name, email, phone, contactImage } = updateContact
+
+        const result = await updateContactApi(updateContact);
+        if (result.status == 201) {
+            toast.success("Contact Updated Succesfully")
+            setUpdateContact({ name: "", email: "", phone: "", contactImage: "" });
+            nav('/landing')
+        }
+        else {
+            toast.error("Failed to update !!!")
+            console.log(result);
+
+        }
+    }
+
+
     return (
         <>
-            <div className='flex flex-col bg-white h-full items-center justify-center p-4'>
+            <div className='flex flex-col items-center justify-center p-4'>
                 <h1 className='text-3xl mt-10'>Edit Contact</h1>
-                <div className='w-full'>
-                    <div className="mx-auto max-w-sm mt-10 rounded-lg bg-white p-6 shadow-4 dark:bg-surface-dark">
-                        <form>
 
-                            <div className="relative mb-6" data-twe-input-wrapper-init>
-                                <input
-                                    type="text"
-                                    className="peer block min-h-[auto] w-full rounded border-1 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0"
-                                    id="exampleInputEmail2"
-                                    aria-describedby="emailHelp"
-                                    placeholder="Enter Name" />
-                                <label
-                                    for="exampleInputEmail2"
-                                    className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[twe-input-state-active]:-translate-y-[0.9rem] peer-data-[twe-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-300 dark:peer-focus:text-primary"
-                                >Enter Name</label>
-                            </div>
-                            <div className="relative mb-6" data-twe-input-wrapper-init>
-                                <input
-                                    type="text"
-                                    className="peer block min-h-[auto] w-full rounded border-1 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0"
-                                    id="exampleInputEmail2"
-                                    aria-describedby="emailHelp"
-                                    placeholder="Image URL" />
-                                <label
-                                    for="exampleInputEmail2"
-                                    className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[twe-input-state-active]:-translate-y-[0.9rem] peer-data-[twe-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-300 dark:peer-focus:text-primary"
-                                >Enter Image Url</label>
-                            </div>
-                            <div className="relative mb-6" data-twe-input-wrapper-init>
-                                <input
-                                    type="email"
-                                    className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0"
-                                    id="exampleInputEmail2"
-                                    aria-describedby="emailHelp"
-                                    placeholder="Enter Name" />
-                                <label
-                                    for="exampleInputEmail2"
-                                    className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[twe-input-state-active]:-translate-y-[0.9rem] peer-data-[twe-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-300 dark:peer-focus:text-primary"
-                                >Enter Email</label>
-                            </div>
+                <div className="mx-auto max-w-sm bg-gray-600 mt-10 rounded-lg p-6 shadow-4 dark:bg-surface-dark">
 
+                    <label className="input input-bordered mb-3 flex items-center gap-2">
+                        <input type="text" className="grow" placeholder="Names" />
+                    </label>
 
-                            <div className="relative mb-6" data-twe-input-wrapper-init>
-                                <input
-                                    type="number"
-                                    className="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[twe-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-white dark:placeholder:text-neutral-300 dark:autofill:shadow-autofill dark:peer-focus:text-primary [&:not([data-twe-input-placeholder-active])]:placeholder:opacity-0"
-                                    id="exampleInputPassword2"
-                                    placeholder="Phone Number" />
-                                <label
-                                    for="exampleInputPhone"
-                                    className="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[twe-input-state-active]:-translate-y-[0.9rem] peer-data-[twe-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-300 dark:peer-focus:text-primary"
-                                >Phone Number</label
-                                >
-                            </div>
+                    <label className="input input-bordered mb-3 flex items-center gap-2">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 16 16"
+                            fill="currentColor"
+                            className="h-4 w-4 opacity-70">
+                            <path
+                                d="M2.5 3A1.5 1.5 0 0 0 1 4.5v.793c.026.009.051.02.076.032L7.674 8.51c.206.1.446.1.652 0l6.598-3.185A.755.755 0 0 1 15 5.293V4.5A1.5 1.5 0 0 0 13.5 3h-11Z" />
+                            <path
+                                d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
+                        </svg>
+                        <input type="email" className="grow" placeholder="Email" />
+                    </label>
 
+                    <label className="input input-bordered mb-3 flex items-center gap-2">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 16 16"
+                            fill="currentColor"
+                            className="h-4 w-4 opacity-70">
+                            <path
+                                d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
+                        </svg>
+                        <input type="tel" className="grow" placeholder="Phone" required />
+                    </label>
 
-                            <button
-                                type="submit"
-                                className="inline-block w-full rounded bg-yellow-400 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-slate-800 shadow-primary-3 transition duration-150 ease-in-out hover:bg-yellow--500 hover:shadow-primary-2 focus:bg-yellow-600 focus:shadow-primary-2 focus:outline-none focus:ring-0 active:bg-yellow-600 active:shadow-primary-2 dark:shadow-black/30 dark:hover:shadow-dark-strong dark:focus:shadow-dark-strong dark:active:shadow-dark-strong"
-                                data-twe-ripple-init
-                                data-twe-ripple-color="light">
-                                Update
-                            </button>
-                        </form>
+                    <label className="input input-bordered mb-3 flex items-center gap-2">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 16 16"
+                            fill="currentColor"
+                            className="h-4 w-4 opacity-70">
+                            <path
+                                d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
+                        </svg>
+                        <input type="text" className="grow" placeholder="Image Url" required />
+                    </label>
+
+                    <div className='flex justify-between'>
+                        <button onClick={handleUpdate} className="btn btn-neutral">Update</button>
+                        <button className="btn btn-error">Close</button>
                     </div>
+
                 </div>
+
             </div>
         </>
     )

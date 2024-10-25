@@ -18,7 +18,6 @@ function App() {
         <Route path={'/'} element={<Home />} />
         <Route path={'/landing'} element={<Landing />} />
         <Route path={'/contacts'} element={<AddContact />} />
-        <Route path={'/editcontact'} element={<EditContact/>} />
       </Routes>
       <ToastContainer/>
     </>
