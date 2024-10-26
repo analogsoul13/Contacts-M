@@ -37,7 +37,7 @@ function Navbar() {
                             </Link>
                         </div>
                         <div className='flex justify-center py-2 mb-6 hover:bg-[#fe5711] w-full'>
-                            <Link onClick={toggle} to={'/addcontact'}>
+                            <Link onClick={toggle} to={'/contacts'}>
                                 <h1>Create Contact</h1>
                             </Link>
                         </div>
